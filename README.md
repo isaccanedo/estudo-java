@@ -59,3 +59,58 @@ javaStringBuffer sbf = new StringBuffer("Hello");
 sbf.append(" World"); // Modifica o mesmo objeto, com sincronização
 System.out.println(sbf); // Output: Hello World
 ```
+
+# Comparação entre String, StringBuilder e StringBuffer em Java
+
+A tabela abaixo resume as principais diferenças entre as classes `String`, `StringBuilder` e `StringBuffer` em Java, com base em suas características, desempenho e casos de uso.
+
+| Característica       | String                     | StringBuilder              | StringBuffer               |
+|----------------------|----------------------------|----------------------------|----------------------------|
+| **Mutabilidade**     | Imutável                  | Mutável                   | Mutável                   |
+| **Thread-Safe**      | Sim (por imutabilidade)   | Não                       | Sim (sincronizado)        |
+| **Desempenho**       | Lento para modificações   | Rápido                    | Mais lento que StringBuilder |
+| **Uso recomendado**  | Strings fixas             | Manipulação em single-thread | Manipulação em multithread |
+| **Memória**          | Pode criar muitos objetos | Eficiente, menos objetos  | Eficiente, menos objetos  |
+| **Introduzida em**   | Java 1.0                 | Java 1.5                  | Java 1.0                  |
+
+## Observações
+- **`String`**: Ideal para textos constantes ou imutáveis. Operações frequentes de modificação são ineficientes devido à criação de novos objetos.
+- **`StringBuilder`**: Preferido para manipulação de strings em ambientes de thread única, oferecendo melhor desempenho.
+- **`StringBuffer`**: Usado em cenários multithread onde a sincronização é necessária, mas tem maior sobrecarga que `StringBuilder`.
+
+
+  Quando Usar Cada Uma?
+
+String: Use para textos constantes ou quando a imutabilidade é desejada (ex.: chaves de mapas, configurações fixas). Evite em loops ou operações intensivas de modificação.
+StringBuilder: Use em cenários de thread única quando precisar construir ou modificar strings dinamicamente, como em loops ou concatenações complexas.
+StringBuffer: Use em cenários multithread onde várias threads precisam modificar a mesma sequência de caracteres. No entanto, em muitos casos, pode-se usar StringBuilder com sincronização manual (ex.: com synchronized ou Lock) para maior controle.
+
+
+Exemplo Prático Comparativo
+```
+java// Usando String (ineficiente em loops)
+String str = "";
+for (int i = 0; i < 1000; i++) {
+    str += i; // Cria um novo objeto String a cada iteração
+}
+
+// Usando StringBuilder (eficiente)
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 1000; i++) {
+    sb.append(i); // Modifica o mesmo objeto
+}
+
+// Usando StringBuffer (eficiente e thread-safe)
+StringBuffer sbf = new StringBuffer();
+for (int i = 0; i < 1000; i++) {
+    sbf.append(i); // Modifica o mesmo objeto, com sincronização
+}
+```
+
+No exemplo acima, StringBuilder será muito mais rápido que String e ligeiramente mais rápido que StringBuffer.
+
+### Dicas Adicionais
+
+**Capacidade Inicial:** Tanto StringBuilder quanto StringBuffer permitem definir uma capacidade inicial (ex.: new StringBuilder(100)) para evitar realocações de memória.
+**Métodos Comuns:** Ambos StringBuilder e StringBuffer oferecem métodos como append(), insert(), delete(), reverse(), entre outros.
+**Java Moderno:** Desde o Java 5, StringBuilder é preferido na maioria dos casos devido à sua performance. StringBuffer é raramente usado, exceto em sistemas legados ou cenários específicos de concorrência.
