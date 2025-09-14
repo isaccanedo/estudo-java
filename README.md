@@ -1,7 +1,7 @@
 Em Java, String, StringBuilder e StringBuffer são classes usadas para manipulação de sequências de caracteres, mas elas têm diferenças significativas em termos de desempenho, mutabilidade e uso em contextos específicos. Vou explicar cada uma delas de forma clara e concisa, destacando suas características, casos de uso e diferenças.
 
 
-1. String
+### 1. String
 
 Mutabilidade: Imutável (uma vez criado, o conteúdo de um objeto String não pode ser alterado).
 Descrição: A classe String representa uma sequência de caracteres imutável. Cada operação que parece modificar uma String (como concatenação com +) cria um novo objeto String, deixando o original intacto.
